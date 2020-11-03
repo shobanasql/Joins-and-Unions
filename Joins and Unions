@@ -1,0 +1,163 @@
+Joins:
+1)mysql> create table Emp(id int,Name varchar(200),DepId varchar(200));
+Query OK, 0 rows affected (0.84 sec)
+
+2)mysql> insert into Emp(Id,Name,DepId)values(1,'Mani','1');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into Emp(Id,Name,DepId)values(2,'kani','2');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into Emp(Id,Name,DepId)values(3,'Vani','3');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into Emp(Id,Name,DepId)values(4,'Pani','4');
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into Emp(Id,Name,DepId)values(5,'Thani','5');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into Emp(Id,Name,DepId)values(6,'kami','6');
+Query OK, 1 row affected (0.08 sec)
+
+3)mysql> select * from Emp;
++------+--------+-------+
+| id   | Name   | DepId |
++------+--------+-------+
+|    1 | Mani   | 1     |
+|    2 | Kani   | 2     |
+|    3 | Vani   | 3     |
+|    4 | pani   | 1     |
+|    5 | Thani  | 4     |
+|    6 | kami   | 2     |
++------+--------+-------+
+6 rows in set (0.00 sec)
+
+4)mysql> create table Dep(DepId varchar(200),Dep_name varchar(200));
+Query OK, 0 rows affected (0.46 sec)
+
+mysql> insert into Dep(DepId,Dep_name)values('1','IT');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into Dep(DepId,Dep_name)values('2','Mech');
+Query OK, 1 row affected (0.08 sec)
+
+5)mysql> select * from Dep;
++-------+----------+
+| DepId | Dep_name |
++-------+----------+
+| 1     | IT       |
+| 2     | Mech     |
++-------+----------+
+2 rows in set (0.00 sec)
+
+6)mysql> select Id,Name,Dep.DepId,Dep_name from Emp 
+join Dep on Emp.DepId=Dep.DepId;
++------+--------+-------+----------+
+| Id   | Name   | DepId | Dep_name |
++------+--------+-------+----------+
+|    1 | Mani   | 1     | IT       |
+|    2 | kani   | 2     | Mech     |
+|    4 | Pani   | 1     | IT       |
+|    6 | Kami   | 2     | Mech     |
++------+--------+-------+----------+
+4 rows in set (0.05 sec)
+
+7)mysql> select Id,Name,Dep.DepId,Dep_name from Emp
+left join 
+Dep on Emp.DepId=Dep.DepId;
++------+--------+-------+----------+
+| Id   | Name   | DepId | Dep_name |
++------+--------+-------+----------+
+|    1 | Mani   | 1     | IT       |
+|    4 | Pani   | 1     | IT       |
+|    2 | Kani   | 2     | Mech     |
+|    6 | Kami   | 2     | Mech     |
+|    3 | Vani   | NULL  | NULL     |
+|    5 | Thanni | NULL  | NULL     |
++------+--------+-------+----------+
+6 rows in set (0.01 sec)
+
+8)mysql> select Id,Name,Dep.DepId,Dep_name from Emp 
+right join 
+Dep on Emp.DepId=Dep.DepId;
++------+--------+-------+----------+
+| Id   | Name   | DepId | Dep_name |
++------+--------+-------+----------+
+|    1 | Mani   | 1     | IT       |
+|    2 | kani   | 2     | Mech     |
+|    4 | Pani   | 1     | IT       |
+|    6 | Kami   | 2     | Mech     |
++------+--------+-------+----------+
+4 rows in set (0.00 sec)
+
+9)mysql> select Id,Name,Dep.DepId,Dep_name from Emp 
+inner join 
+Dep on Emp.DepId=Dep.DepId;
++------+--------+-------+----------+
+| Id   | Name   | DepId | Dep_name |
++------+--------+-------+----------+
+|    1 | mani   | 1     | IT       |
+|    2 | kani   | 2     | Mech     |
+|    4 | Pani   | 1     | IT       |
+|    6 | Kami   | 2     | Mech     |
++------+--------+-------+----------+
+4 rows in set (0.00 sec)
+
+10)mysql> select Id,Name,Dep.DepId,Dep_name from Emp 
+cross join 
+Dep on Emp.DepId=Dep.DepId;
++------+--------+-------+----------+
+| Id   | Name   | DepId | Dep_name |
++------+--------+-------+----------+
+|    1 | Mani   | 1     | IT       |
+|    2 | Kani   | 2     | Mech     |
+|    4 | Pani   | 1     | IT       |
+|    6 | Kami   | 2     | mech     |
++------+--------+-------+----------+
+4 rows in set (0.00 sec)
+
+
+Union :
+
+1)mysql> select * from Employee;
++--------+----------+--------+
+| emp_id | Emp_name | salary |
++--------+----------+--------+
+|    110 | sam      |  10000 |
+|    110 | kam      |  12000 |
+|    110 | pani     |  13000 |
+|    110 | Avani    |  14500 |
++--------+----------+--------+
+4 rows in set (0.00 sec)
+
+2)mysql> select Emp_name from Employee
+union
+select fname from userforms;
++----------+
+| Emp_name |
++----------+
+| sam      |
+| Kam      |
+| Pani     |
+| vani     |
+| mani     |
+| panii    |
+| man      |
++----------+
+7 rows in set (0.03 sec)
+3)mysql> select salary from Employee 
+union
+select fname from userforms;
++--------+
+| salary |
++--------+
+| 10000  |
+| 12000  |
+| 13000  |
+| 14500  |
+| mounya |
+| teja   |
+| mahi   |
++--------+
+7 rows in set (0.00 sec)
